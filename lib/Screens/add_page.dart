@@ -12,8 +12,28 @@ class _AddToDoPageState extends State<AddToDoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Todo")
-        ),
+        title: const Text("Add Todo"),
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(20),
+        children: [
+          TextField(
+            decoration: InputDecoration(hintText: 'Title'),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              hintText: 'Description',
+            ),
+            keyboardType: TextInputType.multiline,
+            minLines: 5,
+            maxLines: 8,
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(onPressed: () {},
+          child: Text('Submit'))
+        ],
+      ),
     );
   }
 }
