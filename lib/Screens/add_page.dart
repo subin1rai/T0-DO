@@ -69,6 +69,8 @@ class _AddToDoPageState extends State<AddToDoPage> {
 
     //show success and fail message based on status
     if(response.statusCode == 201){
+      titleController.text = '';
+      descriptionController.text = '';
       showSuccessMessage("Creation Success");
     }
     else{
