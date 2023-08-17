@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class AddToDoPage extends StatefulWidget {
   const AddToDoPage({super.key});
@@ -8,6 +9,8 @@ class AddToDoPage extends StatefulWidget {
 }
 
 class _AddToDoPageState extends State<AddToDoPage> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,24 +19,44 @@ class _AddToDoPageState extends State<AddToDoPage> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         children: [
           TextField(
-            decoration: InputDecoration(hintText: 'Title'),
+            controller: titleController,
+            decoration: const InputDecoration(hintText: 'Title'),
           ),
           TextField(
-            decoration: InputDecoration(
+            controller: descriptionController,
+            decoration: const InputDecoration(
               hintText: 'Description',
             ),
             keyboardType: TextInputType.multiline,
             minLines: 5,
             maxLines: 8,
           ),
-          SizedBox(height: 20),
-          ElevatedButton(onPressed: () {},
-          child: Text('Submit'))
+          const SizedBox(height: 20),
+          ElevatedButton(onPressed: () {}, child: const Text('Submit'))
         ],
       ),
     );
+  }
+
+  Future <void> submitData() async{
+    //get the data from form
+    final title = titleController.text;
+    final description = descriptionController.text;
+    final body = {
+      "title": title,
+       "description": description, 
+       "is_completed": false
+       };
+
+    //submit data to the server
+    final url = 'https://api.nstack.in/v1/todos';
+    final uri = Uri.parse(url); 
+    final response = await http.post(uri);
+
+
+    //show success and fail message based on status
   }
 }
